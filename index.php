@@ -17,20 +17,21 @@ $content = '
 <div class="description">Hier finden Sie alle Bilder, die mit der Fotobox aufgenommen wurden. Durch einen Klick wird das jeweilige Bild direkt heruntergeladen.</div>
 <div class="image-grid">';
 
+$directory = "images/";
+$images = glob($directory . '*.jpg') + glob($directory . '*.png');
 
-$handle = opendir(dirname(realpath(__FILE__)) . '/images/');
-while ($file = readdir($handle)) {
-    if ($file !== '.' && $file !== '..') {
-        $urlEncodedFile = urlencode($file);
-        $content .= <<<EOF
+usort($images, static function ($a, $b) {
+    return filemtime($a) - filemtime($b);
+});
+
+foreach ($images as $image) {
+    $urlEncodedFile = urlencode($image);
+    $content .= <<<EOF
  <a class="image-grid__image-wrapper" href="download.php?file=$urlEncodedFile" target="_blank">
-    <img loading="lazy" class="image-grid__image" src="images/$file">
+    <img loading="lazy" class="image-grid__image" src="$image">
 </a>
 EOF;
-    }
 }
-//$content .=
-
 
 $content .= '
 </div>

@@ -8,8 +8,7 @@ if (empty($file)) {
 
 $fileName = urldecode($file);
 
-$directory = "images";
-list($image) = glob($directory . "/" . $fileName);
+list($image) = glob($fileName);
 
 $mimeType = mime_content_type($image);
 

@@ -48,7 +48,7 @@ img {
 }
 
 .image-grid__image-wrapper {
-    aspect-ratio: 4/3;
+    aspect-ratio: 3/2;
     position: relative;
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
