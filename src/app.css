@@ -1,0 +1,67 @@
+@font-face {
+    font-family: "Abel";
+    src: url("./fonts/Abel-Regular.ttf") format("truetype");
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.description {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.logo {
+    margin-bottom: 2rem;
+    max-width: 200px;
+}
+
+body {
+    font-family: Abel;
+    margin: 2rem 0;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1024px;
+    padding: 0 2rem;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.image-grid__image-wrapper {
+    aspect-ratio: 4/3;
+    position: relative;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+.image-grid__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+}
