@@ -21,7 +21,7 @@ $directory = "images/";
 $images = glob($directory . '*.jpg') + glob($directory . '*.png');
 
 usort($images, static function ($a, $b) {
-    return filemtime($a) - filemtime($b);
+    return filemtime($b) - filemtime($a);
 });
 
 foreach ($images as $image) {
