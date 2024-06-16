@@ -26,10 +26,18 @@ usort($images, static function ($a, $b) {
 
 foreach ($images as $image) {
     $urlEncodedFile = urlencode($image);
+    $date = new DateTime();
+    $date->setTimestamp(filemtime($image));
+
+    $dateTime = $date->format('d.m.Y H:i:s');
+
     $content .= <<<EOF
- <a class="image-grid__image-wrapper" href="download.php?file=$urlEncodedFile" target="_blank">
-    <img loading="lazy" class="image-grid__image" src="$image">
-</a>
+    <figure>
+         <a class="image-grid__image-wrapper" href="download.php?file=$urlEncodedFile" target="_blank">
+            <img loading="lazy" class="image-grid__image" src="$image">
+        </a>
+        <figcaption>$dateTime</figcaption>
+    </figure>
 EOF;
 }
 
