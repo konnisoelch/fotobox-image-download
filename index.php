@@ -17,8 +17,24 @@ $content = '
 <div class="description">Hier finden Sie alle Bilder, die mit der Fotobox aufgenommen wurden. Durch einen Klick wird das jeweilige Bild direkt heruntergeladen.</div>
 <div class="image-grid">';
 
+$fileExtensions = [
+    'jpg',
+    'png',
+    'jpeg',
+];
+
+$images = [];
 $directory = "images/";
-$images = glob($directory . '*.jpg') + glob($directory . '*.png');
+
+foreach ($fileExtensions as $fileExtension) {
+    $lowerCaseExtension = '*.' . $fileExtension;
+    $globResult = glob($directory . $lowerCaseExtension);
+    array_push($images, ...($globResult ?: []));
+
+    $uppercaseExtension = '*.' . strtoupper($fileExtension);
+    $globResult = glob($directory . $uppercaseExtension);
+    array_push($images, ...($globResult ?: []));
+}
 
 usort($images, static function ($a, $b) {
     return filemtime($b) - filemtime($a);
@@ -26,10 +42,18 @@ usort($images, static function ($a, $b) {
 
 foreach ($images as $image) {
     $urlEncodedFile = urlencode($image);
+    $date = new DateTime();
+    $date->setTimestamp(filemtime($image));
+
+    $dateTime = $date->format('d.m.Y H:i:s');
+
     $content .= <<<EOF
- <a class="image-grid__image-wrapper" href="download.php?file=$urlEncodedFile" target="_blank">
-    <img loading="lazy" class="image-grid__image" src="$image">
-</a>
+    <figure>
+         <a class="image-grid__image-wrapper" href="download.php?file=$urlEncodedFile" target="_blank">
+            <img loading="lazy" class="image-grid__image" src="$image">
+        </a>
+        <figcaption>$dateTime</figcaption>
+    </figure>
 EOF;
 }
 
